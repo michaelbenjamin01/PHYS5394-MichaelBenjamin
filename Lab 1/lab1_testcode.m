@@ -21,16 +21,20 @@ sigVec = expdampsin(timeVec,A,ta,f0,tau,phi0,L);
 % plotting signal
 figure;
 plot(timeVec,sigVec);
+title('exponentially damped sinusoid timeseries')
+grid on; grid minor;
 
 % plotting periodogram
-dataLen = timeVec(end) - timeVec(1);
-kNyq = floor(length(timeVec)/2)+1;
-posFreq = (0:(kNyq-1))*(1/dataLen);
-fftSig = fft(sigVec);
-fftSig = fftSig(1:kNyq);
+dataLen = timeVec(end) - timeVec(1); % obtaining length of data
+kNyq = floor(length(timeVec)/2)+1; % DFT point at nyquist frequency
+posFreq = (0:(kNyq-1))*(1/dataLen); % positive frequencies in fft
+fftSig = fft(sigVec); % fast fourier transform of signal
+fftSig = fftSig(1:kNyq); % removing frequencies to the left of nyquist freq
 
 figure;
 plot(posFreq,abs(fftSig));
+title('exponentially damped sinusoid periodogram')
+grid on; grid minor;
 
 % plotting spectrogram
 winLen = 0.02; % in seconds
@@ -41,6 +45,7 @@ ovrlpSmpls = floor(ovrlp*fs);
 [S,F,T]=spectrogram(sigVec,winLenSmpls,ovrlpSmpls,[],fs);
 figure;
 imagesc(T,F,abs(S)); axis xy;
+title('exponentially damped sinusoid spectrogram');
 xlabel('Time (sec)');
 ylabel('Frequency (Hz)');
 
@@ -59,6 +64,8 @@ sigVec = stepFM(timeVec,A,ta,f0,f1);
 % plotting signal
 figure;
 plot(timeVec,sigVec);
+title('step FM timeseries')
+grid on; grid minor;
 
 % plotting periodogram
 dataLen = timeVec(end) - timeVec(1);
@@ -69,6 +76,8 @@ fftSig = fftSig(1:kNyq);
 
 figure;
 plot(posFreq,abs(fftSig));
+title('step FM periodogram');
+grid on; grid minor;
 
 % plotting spectrogram
 winLen = 0.02; % in seconds
@@ -79,5 +88,6 @@ ovrlpSmpls = floor(ovrlp*fs);
 [S,F,T]=spectrogram(sigVec,winLenSmpls,ovrlpSmpls,[],fs);
 figure;
 imagesc(T,F,abs(S)); axis xy;
+title('step FM spectrogram');
 xlabel('Time (sec)');
 ylabel('Frequency (Hz)');
