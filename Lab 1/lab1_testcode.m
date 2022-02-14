@@ -2,10 +2,17 @@ clear
 clc
 
 %% expdampsin(data,A,ta,f0,tau,phi0,L)
+%FIXME: Add a few lines here about this script. The title above should be
+%reserved for the function's documentation.
 
 % parameters
 % timeVec = linspace(0,2*pi,300);
+%FIXME The comment for fs is incorrect.
 fs = 128; %sampling frequency 1/100s
+%FIXME The meaning of 'Itvs' is not evident; standard variable name
+%convention is to start with lowercase. Whichever convention you pick,
+%follow it consistently ('timeVec' starts with lowercase but 'Itvs' does
+%not).
 Itvs = 1/fs; % sampling interval;
 timeVec = 0:Itvs:5;
 A = 10; % amplitude of our signal
@@ -31,6 +38,7 @@ posFreq = (0:(kNyq-1))*(1/dataLen); % positive frequencies in fft
 fftSig = fft(sigVec); % fast fourier transform of signal
 fftSig = fftSig(1:kNyq); % removing frequencies to the left of nyquist freq
 
+%FIXME Add axes labels 
 figure;
 plot(posFreq,abs(fftSig));
 title('exponentially damped sinusoid periodogram')

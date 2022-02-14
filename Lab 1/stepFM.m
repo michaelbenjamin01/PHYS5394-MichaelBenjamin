@@ -1,4 +1,5 @@
 function sigVec = stepFM(data,A,ta,f0,f1)
+%FIXME Most comments in expdampsin apply here.
 % Generates step FM signal
 % data is the time vector, the rest of the values are scalar parameters.
 
