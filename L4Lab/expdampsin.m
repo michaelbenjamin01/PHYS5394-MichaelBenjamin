@@ -1,4 +1,5 @@
 function sigVec = expdampsin(dataX,snr,ta,f0,tau,phi0,L)
+% S = EXPDAMPSIN(dataX,snr,ta,f0,tau,phi0,L)
 % Generates exponentially damped sinusoid signal. This function has a
 % window applied to it so that only in the range of [t_a,t_a + L] is when
 % we have our signal.

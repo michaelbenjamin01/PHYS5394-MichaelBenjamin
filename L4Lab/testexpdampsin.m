@@ -16,7 +16,7 @@ clc
 SNR = 10; % amplitude of our signal
 ta =  1; % beginning of the window for the exponentially damped sinusoid
 f0 = 5; % initial frequency as discussed in the above description, f0  
-tau = 10;
+tau = 2;
 phi0 = 5; % initial phase
 L = pi; % end of the window for exponentially damped sinusoid
 nqstfs = 2*f0; % nyquist sampling frequency
