@@ -35,19 +35,19 @@ sigVec = expdampsin(timeVec,SNR,ta,f0,tau,phi0,L);
 % plotting signal
 figure;
 plot(timeVec,sigVec);
-title('exponentially damped sinusoid timeseries')
+title('exponentially damped sinusoid timeseries');
 xlabel('time');
 ylabel('amplitude');
 grid on; grid minor;
 
-% plotting periodogram
+%% Plotting periodogram
+
 dataLen = timeVec(end) - timeVec(1); % obtaining length of data
 kNyq = floor(length(timeVec)/2)+1; % DFT point at nyquist frequency
 posFreq = (0:(kNyq-1))*(1/dataLen); % positive frequencies in fft
 fftSig = fft(sigVec); % fast fourier transform of signal
 fftSig = fftSig(1:kNyq); % removing frequencies to the left of nyquist freq
 
-%FIXME Add axes labels 
 figure;
 plot(posFreq,abs(fftSig));
 title('exponentially damped sinusoid periodogram');
@@ -55,7 +55,7 @@ xlabel('Positive Frequencies');
 ylabel('Amplitude');
 grid on; grid minor;
 
-% plotting spectrogram
+%% Plotting spectrogram
 winLen = 0.4; % in seconds
 ovrlp = 0.01; % in seconds
 

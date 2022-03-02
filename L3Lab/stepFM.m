@@ -1,13 +1,22 @@
-function sigVec = stepFM(data,A,ta,f0,f1)
-%FIXME Most comments in expdampsin apply here.
-% Generates step FM signal
-% data is the time vector, the rest of the values are scalar parameters.
+function sigVec = stepFM(dataX,snr,ta,f0,f1)
+% Generates a frequency modulated step function. 
 
-    for t = 1:length(data)
-        if data(t) <= ta
-            sigVec(t) = A*sin(2*pi*f0*data(t));
-        else
-            sigVec(t) = A*sin(2*pi*f1*(data(t)-ta) + 2*pi*f0*ta);
-        end
+% dataX - time vector, the rest of the values are scalar parameters
+% snr - the signal-to-noise ratio of signal sigVec.
+% ta - the beginning of the time window in which our signal appears in.
+% f0 - initial frequency of sinusoid before ta.
+% f1 - initial frequency of sinusoid after ta.
+
+% Michael Benjamin, Febuary 2022
+
+sigVec = zeros(1,length(dataX)); % initializes sigVec vector before filling it with values
+
+% the following for loop/if statements check if dataX(t) is dataX is less
+% than or equal to ta. It then applies the step function accordingly.
+for t = 1:length(dataX)
+    if dataX(t) <= ta
+        sigVec(t) = snr*sin(2*pi*f0*dataX(t));
+    else
+        sigVec(t) = snr*sin(2*pi*f1*(dataX(t)-ta) + 2*pi*f0*ta);
     end
 end
