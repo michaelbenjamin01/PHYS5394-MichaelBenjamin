@@ -21,8 +21,10 @@ addpath ..\L3Lab
 SNR = 10;
 ta = 1;
 f0 = 10;
-f1 = 10;
-nqstfs = 2*f0; % Nyquist sampling frequency
+%SDM changed f1 to show step in frequency modulation
+f1 = 20;
+%SDM: Nyquist rate should be 2 times the maximum instantaneous frequency
+nqstfs = 2*max(f0,f1); % Nyquist sampling frequency
 
 %% plotting for sampling frequency as 5 times nyquist sampling frequency.
 

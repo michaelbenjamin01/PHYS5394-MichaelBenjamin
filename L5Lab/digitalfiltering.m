@@ -44,7 +44,15 @@ filtOrdr = 30; % set order of filter filt1.
 
 % designing filter to remove signals above initial frequency for 1st
 % sinusoid. We choose f0 as our max frequency.
-b1 = fir1(filtOrdr, (f0(1))/(sampFreq/2));
+%FIXME Cutoff frequency for FIR filter is at the signal frequency that
+%needs to be passed: this is cutting off the power in the signal itself
+%SDM: Set the low pass filter cutoff such that the sinusoid at 100Hz is
+%passed while the others are reduced. Review the meaning of low, band, and
+%high pass filters. Note that now the first sinusoid in the filtered data
+%has the same magnitude in the periodogram instead of the factor of 2
+%reduction in your code.
+%b1 = fir1(filtOrdr, (f0(1))/(sampFreq/2));
+b1 = fir1(filtOrdr, (150)/(sampFreq/2));
 filtSig1 = fftfilt(b1,sigVec);
 
 % b2 is bandpass removing signals higher or lower than initial frequency of
@@ -54,6 +62,7 @@ filtSig2 = fftfilt(b2,sigVec);
 
 % b3 is highpass filter removing signals lower than initial frequency of
 % 3rd sinusoid. We choose f0 as our max frequency.
+%FIXME Fix this part following the comment for the low pass filter above.
 b3 = fir1(filtOrdr, f0(3)/(sampFreq/2), 'high');
 filtSig3 = fftfilt(b3,sigVec);
 
