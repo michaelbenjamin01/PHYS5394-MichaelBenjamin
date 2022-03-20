@@ -6,6 +6,8 @@ addpath ..\L3Lab
 % This function has two different forms depending if t =< t_a or if t >
 % t_a. As a result, we will find the nyquist sampling frequency for both
 % conditions.
+%FIXME There is only one Nyquist sampling frequency: 2*(the highest freq.)
+%NOTE It just so happens that your f1 is not high enough to overshoot 5*f0.
 
 % for t =< t_a:
 % s(t) = A*sin(2*pi*f_0*t)
@@ -19,10 +21,12 @@ addpath ..\L3Lab
 
 % parameters
 SNR = 10;
-ta = 1;
+ta = 2;
 f0 = 10;
-f1 = 10;
-nqstfs = 2*f0; % Nyquist sampling frequency
+f1 = 30;
+%nqstfs = 2*f0; % Nyquist sampling frequency
+%FIXME 2*(max(f0,f1))
+nqstfs = 2*max(f0,f1);
 
 %% plotting for sampling frequency as 5 times nyquist sampling frequency.
 
