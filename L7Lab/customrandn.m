@@ -1,4 +1,5 @@
 function randData = customrandn(y, a, b)
+%FIXME See the comments in CUSTOMRAND and implement them here.
 % This function creates a random normal distribution of variables Y in the
 % form of N(Y;mu,sigma) in the range where mu is the mean of the
 % distribution, and sigma is the standard deviation of the distribution. We
@@ -10,4 +11,6 @@ function randData = customrandn(y, a, b)
 % a = mu, mean of distribution
 % b = sigma, standard deviation of distribution
 
-randData = a * randn(y) + b;
+%FIXME This should be b*randn(y) + a
+%randData = a * randn(y) + b;
+randData = b*randn(y)+a;

@@ -1,6 +1,8 @@
 clear
 clc
-
+%NOTE Add values of PDF parameters (e.g., a,b) in the title
+%NOTE keep the title short (e.g., "N(x;1.5,2.0)"); 
+%NOTE Use 'legend' to show which curve/marker is the pdf or histogram
 trial = [1 10000];
 %% making data with U(x;-2,1) distribution and plotting it's PDF
 
@@ -28,6 +30,8 @@ grid on;
 title('Histogram & pdf for a Uniform dist U(X; a, b)')
 xlabel('y (values of random variable Y)');
 ylabel('p_Y(y) = U(X; a, b)');
+%NOTE Using legend
+legend('histogram', 'pdf');
 
 %% making data with N(x;1.5,2.0) distribution and plotting it's PDF
 
