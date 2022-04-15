@@ -42,7 +42,7 @@ filtrOrdr = 500;
 %FIXME Error: 1024 Hz sampling frequency means highest DFT freq = 512 Hz < 700 Hz cutoff
 %sampFreq = 1024;
 sampFreq = 2048;
-%FIXME Generate a longer noise realization (this is only 8 sec long at the new sampling frequency)
+%FIXME Generate a longer noise realization (16384 is only 8 sec long at the new sampling frequency)
 nSamples = 16384*8;
 %FIXME Error: the function normalize is for statistical analysis! 
 %normfreq = normalize(freqVec,'range');
