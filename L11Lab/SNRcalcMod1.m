@@ -4,6 +4,8 @@
 % Density (PSD). [We often shorten this statement to say: "Normalize the
 % signal to have a given SNR." ]
 
+clear all;
+close all;
 %%
 % Path to folder containing signal and noise generation codes
 addpath ../L3Lab
@@ -23,8 +25,9 @@ timeVec = (0:(nSamples-1))/sampFreq;
 %%
 % Generate the signal that is to be normalized
 ta = 1;
-f0 = 10;
-f1 = 20;
+%FIXME Changed signal parameters to make it more centrally located in the frequency range of the data
+f0 = 100;
+f1 = 200;
 % Amplitude value does not matter as it will be changed in the normalization
 A = 1; 
 sigVec = stepFM(timeVec,A,ta,f0,f1);
@@ -108,17 +111,20 @@ fftSig = fft(sigVec);
 fftSig = fftSig(1:kNyq);
 
 figure;
+%FIXME Missing plot of data (review lab slides)
 plot(posFreq,abs(fftSig));
 title('step FM periodogram, sampling frequency fs = 5*nqstfs');
 grid on; grid minor;
 
 % Plotting spectrogram
 winLen = 0.4; % in seconds
-ovrlp = 0.01; % in seconds
+ovrlp = 0.35; % in seconds
 
 winLenSmpls = floor(winLen*sampFreq);
 ovrlpSmpls = floor(ovrlp*sampFreq);
-[S,F,T]=spectrogram(sigVec,winLenSmpls,ovrlpSmpls,[],sampFreq);
+%FIXME Spectrogram of data required (review lab slides) to see if the SNR chosen leads to a readily visible signal or not
+%[S,F,T]=spectrogram(sigVec,winLenSmpls,ovrlpSmpls,[],sampFreq);
+[S,F,T]=spectrogram(dataVec,winLenSmpls,ovrlpSmpls,[],sampFreq);
 figure;
 imagesc(T,F,abs(S)); axis xy;
 title('step FM spectrogram');
