@@ -5,9 +5,11 @@
 % Density (PSD). [We often shorten this statement to say: "Normalize the
 % signal to have a given SNR." ]
 
+clear all;
+close all;
 %%
 % Path to folder containing signal and noise generation codes
-format long g
+%format long g
 addpath ../L3Lab
 addpath ../L8Lab2
 %addpath ../NOISE
@@ -26,8 +28,9 @@ timeVec = (0:(nSamples-1))/sampFreq;
 %%
 % Generate the signal that is to be normalized
 ta = 1;
-f0 = 10;
-f1 = 20;
+%FIXME Changed signal parameters to make it more centrally located in the frequency range of the data
+f0 = 100;
+f1 = 200;
 % Amplitude value does not matter as it will be changed in the normalization
 A = 1; 
 sigVec = stepFM(timeVec,A,ta,f0,f1);
@@ -47,9 +50,37 @@ dataLen = nSamples/sampFreq;
 kNyq = floor(nSamples/2)+1;
 posFreq = (0:(kNyq-1))*(1/dataLen);
 % psdPosFreq = noisePSD(posFreq);
-psdPosFreq = interp1(iLIGOSensitivity(:,1),iLIGOSensitivity(:,2),posFreq);
+%FIXME Error: The PSD should have been cutoff as was done in Lab8
+%FIXME Error: The iLIGOSensitivity.txt file stores sqrt(PSD) while innerprodpsd requires PSD.
+%FIXME Error: Because of these errors, the results were incorrect (including a NaN output for some unknown reason)
+%psdPosFreq = interp1(iLIGOSensitivity(:,1),iLIGOSensitivity(:,2),posFreq);
+
+%FIXME Error: Replacing with code from another student's submission (Note: this is not the best implementation)
+%Reading the LIGO sensitivity PSD 
+iLIGOS= load('iLIGOSensitivity.txt', 'ascii'); 
+%Low & high cutoff frequency 
+low = iLIGOS(40,2); 
+iLIGOS(1:42,2) = low;
+
+high = iLIGOS(71,2);
+iLIGOS(71:end,2) = high;
+
+iLIGOS(2:end+1,:) = iLIGOS;
+iLIGOS(1,1) = 0; %Hz
+iLIGOS(1,2) = low;
+
+iLIGOS = iLIGOS(1:85,:); % Cut window to 85
+iLIGOS(85,1) = 3000; %Hz
+
+%Interpolate the PSD iLIGOS data irregularly spaced frequencies to the
+%required DT frequency
+psdPosFreq = interp1(iLIGOS(:,1),iLIGOS(:,2),posFreq);
+psdPosFreq = psdPosFreq.^2; 
+
 figure;
-plot(posFreq,psdPosFreq);
+%FIXME use loglog for LIGO PSD
+%plot(posFreq,psdPosFreq);
+loglog(posFreq,psdPosFreq);
 axis([0,posFreq(end),0,max(psdPosFreq)]);
 xlabel('Frequency (Hz)');
 ylabel('PSD ((data unit)^2/Hz)');
