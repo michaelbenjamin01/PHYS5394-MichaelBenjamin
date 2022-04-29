@@ -1,4 +1,5 @@
 %% How to normalize a signal for a given SNR
+%% 
 % We will normalize a signal such that the Likelihood ratio (LR) test for it has
 % a given signal-to-noise ratio (SNR) in noise with a given Power Spectral 
 % Density (PSD). [We often shorten this statement to say: "Normalize the

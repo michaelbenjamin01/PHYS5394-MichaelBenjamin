@@ -61,8 +61,8 @@ ylabel('Frequency (Hz)');
 
 % parameters
 % t = linspace(0,2*pi,300);
-% A = 10;
-% ta = 1;
+A = 10;
+ta = 1;
 f0 = 10;
 f1 = 20;
 
