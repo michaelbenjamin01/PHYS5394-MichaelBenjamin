@@ -2,6 +2,7 @@ clear
 clc
 
 %% stepFM(data,A,ta,f0,f1)
+%FIXME Doc: The function being called has a different input argument list than the one given here in the section header.
 
 % parameters
 fs = 128; %sampling frequency 1/128s
@@ -17,6 +18,7 @@ params = struct('ta',1,'f0',10,'f1',20);
 sigVec = @(x) stepFM_new(timeVec,x,params);
 
 % plotting signal
+%FIXME Plots: no axis labels.
 figure;
 subplot(3,1,1);
 plot(timeVec,sigVec(10));

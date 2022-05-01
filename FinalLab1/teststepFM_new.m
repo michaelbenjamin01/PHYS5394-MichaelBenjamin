@@ -2,6 +2,7 @@ clear
 clc
 
 %% stepFM(data,A,ta,f0,f1)
+%FIXME Doc: The function being called has a different input argument list than the one given here in the section header.
 
 % parameters
 fs = 128; %sampling frequency 1/128s
@@ -21,6 +22,7 @@ figure;
 plot(timeVec,sigVec);
 title('step FM timeseries')
 grid on; grid minor;
+%FIXME Plots: no axis labels.
 
 % plotting periodogram
 dataLen = timeVec(end) - timeVec(1);
@@ -33,3 +35,4 @@ figure;
 plot(posFreq,abs(fftSig));
 title('step FM periodogram');
 grid on; grid minor;
+%FIXME Plots: no axis labels.
