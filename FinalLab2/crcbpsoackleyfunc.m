@@ -6,7 +6,10 @@ function [fitVal,varargout] = crcbpsoackleyfunc(xVec,params)
 
 %rows: points
 %columns: coordinates of a point
-[nrows,~]=size(xVec);
+%FIXME Error: 'D' in Ackley is the number of dimensions; nrows is the number of PSO particles
+%[nrows,~]=size(xVec);
+%SDM
+[nrows,nDims]=size(xVec);
 
 %storage for fitness values
 fitVal = zeros(nrows,1);
@@ -24,7 +27,9 @@ for lpc = 1:nrows
         % this is the only block that was changed from the original
         % fucntion
         x = xVec(lpc,:);
-        fitVal(lpc) = -20*exp(-0.2*sqrt(sum(x.^2)/nrows)) - exp(sum(cos(2*pi*x))/nrows) + 20 + exp(1);
+        %FIXME Error: 'D' in Ackley is the number of dimensions; nrows is the number of PSO particles
+        %fitVal(lpc) = -20*exp(-0.2*sqrt(sum(x.^2)/nrows))-exp(sum(cos(2*pi*x))/nrows)+20+exp(1);
+        fitVal(lpc) = -20*exp(-0.2*sqrt(sum(x.^2)/nDims))-exp(sum(cos(2*pi*x))/nDims)+20+exp(1);
     end
 end
 
