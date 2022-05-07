@@ -65,6 +65,8 @@ phaseVec = x(1)*params.dataX + x(2)*params.dataXSq + x(3)*params.dataXCb;
 qc = sin(2*pi*phaseVec);
 % norm of signal squared is inner product of signal with itself
 
+%FIXME Error: Why is normqcsqrd being computed twice? once through innerprodpsd and then separately again?
+%FIXME Use DATASCIENCE_COURSE/DETEST/normsig4psd.m here.
 normqcsqrd = innerprodpsd(qc, qc, params.sampFreq, params.psdVec);
 nSamples = length(qc);
 kNyq = floor(nSamples/2)+1;
@@ -86,5 +88,8 @@ negFStrt = 1-mod(nSamples,2);
 psdVec4Norm = [params.psdVals,params.psdVals((kNyq-negFStrt):-1:2)];
 
 dataLen = sampFreq*nSamples;
+%FIXME Error: Un-normalized signal used in computing the GLRT.
+%Normalization was done on line 80 but fftqc was computed before
+%normalization.
 innProd = (1/dataLen)*(fftY./psdVec4Norm)*fftqc';
 ssrVal = real(innProd);
