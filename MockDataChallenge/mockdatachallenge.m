@@ -1,7 +1,7 @@
 clear
 clc
 
-addpath ../../DATASCIENCE_COURSE/DETEST/
+%addpath ../../DATASCIENCE_COURSE/DETEST/
 
 %% Estimate noise PSD
 
@@ -49,7 +49,16 @@ timeVec = (0:(nSamples-1))/sampFreq;
 dataLen = nSamples/sampFreq;
 kNyq = floor(nSamples/2)+1;
 posFreq = (0:(kNyq-1))*(1/dataLen);
-psdPosFreq = targetPSD(posFreq);
+%FIXME Major error: The PSD used in the GLRT is incorrect; there is no role for the target PSD in this MDC
+%psdPosFreq = targetPSD(posFreq);
+psdPosFreq = interp1(f,pxx,posFreq,'linear');
+figure;
+hold on;
+loglog(f,pxx);
+loglog(posFreq,psdPosFreq);
+legend('estimated PSD','used PSD');
+xlabel('Frequency (Hz)');
+ylabel('PSD');
 
 % Search range of phase coefficients
 rmin = [40, 1, 1];
@@ -59,6 +68,7 @@ rmax = [100, 50, 15];
 nRuns = 8;
 
 % Input parameters for PSO function
+%FIXME Major error: The PSD used in the GLRT is incorrect; there is no role for the target PSD in this MDC
 inParams = struct('dataX', timeVec,...
                   'dataY', dataVec,...
                   'dataXSq',timeVec.^2,...
@@ -67,7 +77,7 @@ inParams = struct('dataX', timeVec,...
                   'rmax',rmax,...
                   'psdVec', psdPosFreq,...
                   'sampFreq',sampFreq);
-
+%FIXME Error: The estimated PSD was never used in the GLRT, hence the large parameter estimation error (feedback on correcting this was provided in the last set of labs)
 outStruct = crcbqcpsoPSD(inParams,struct('maxSteps',2000),nRuns);
 
 % Display best coefficients
